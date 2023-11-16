@@ -61,6 +61,7 @@ public class HapticEvents
 
 public class HapticPlugin : MonoBehaviour
 {
+    public int sphereCount = 1;
     #region DLL_Imports
     [DllImport("HapticsDirect")] public static extern void getVersionString(StringBuilder dest, int len);  //!< Retreives the OpenHaptics version string.
 
@@ -1652,13 +1653,23 @@ public class HapticPlugin : MonoBehaviour
         getButtons(DeviceIdentifier, Buttons, LastButtonsT,ref inkwell);
 
         //Debug.Log("Button1 = " + Buttons[0] + "  " + LastButtons[0]);
-
+        
         if (LastButtons[0] == 0 && Buttons[0] == 1)
         {
             Debug.Log("button Pressed");
-            
+            float sphereRadius = .05f;
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.position = (transform.localToWorldMatrix * DeviceTransformRaw).ExtractPosition();
+            // sphere.transform.position = (transform.localToWorldMatrix * DeviceTransformRaw).ExtractPosition();
+            // sphere.transform.position = gameObject.transform.InverseTransformVector(collision.GetContact(0).point);
+            sphere.transform.position = CollisionMesh.GetComponent<HapticCollider>().transform.position;
+            sphere.GetComponent<Renderer>().material.color = Color.blue;
+            sphere.name = sphereCount.ToString();
+            sphere.transform.localScale = Vector3.one * sphereRadius * 2;
+            sphere.GetComponent<Collider>().enabled = false;
+            sphere.tag = "Waypoint";
+            sphereCount++;
+
+
             Events.OnClickButton1.Invoke();
             
             
@@ -1678,6 +1689,8 @@ public class HapticPlugin : MonoBehaviour
         // Button 2
         if (LastButtons[1] == 0 && Buttons[1] == 1)
         {
+
+           
 
             Events.OnClickButton2.Invoke();
 

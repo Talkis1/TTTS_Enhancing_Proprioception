@@ -54,7 +54,7 @@ public class NewBehaviourScript : MonoBehaviour
                 // Create a sphere at the hit point
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.name = sphereCount.ToString();
-                sphere.GetComponent<Renderer>().material.color = Color.red;
+                sphere.GetComponent<Renderer>().material.color = Color.blue;
                 sphere.transform.position = hit.point;
                 sphere.transform.localScale = Vector3.one * sphereRadius * 2; // Multiply by 2 because the scale is in diameter
                 sphere.tag = "Waypoint";
