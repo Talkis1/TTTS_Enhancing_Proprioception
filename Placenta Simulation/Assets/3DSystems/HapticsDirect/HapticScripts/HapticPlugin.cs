@@ -635,6 +635,10 @@ public class HapticPlugin : MonoBehaviour
     private GameObject ExternalRBControl = null;
     
     #endregion
+    // public float sphereRadius = 0.05f; // Radius of the sphere to be created
+    // public int sphereCount = 1; // Number of spheres created
+    // public LayerMask sphereLayer; // Layer mask for spheres
+    // public GameObject hoveredSphere; // Currently hovered sphere
 
     #region ContactPointInfo_Exchange
     public struct ContactPointInfo
@@ -739,9 +743,10 @@ public class HapticPlugin : MonoBehaviour
         
     }
 
-    private void Update()
+    void Update()
     {
-               
+         
+        
 
     }
 
@@ -1636,6 +1641,7 @@ public class HapticPlugin : MonoBehaviour
 
     public void UpdateButtonStatus()
     {
+        
         int[] LastButtonsT = new int[4];
 
         LastButtons[0] = Buttons[0];
@@ -1649,7 +1655,10 @@ public class HapticPlugin : MonoBehaviour
 
         if (LastButtons[0] == 0 && Buttons[0] == 1)
         {
-
+            Debug.Log("button Pressed");
+            
+            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            sphere.transform.position = (transform.localToWorldMatrix * DeviceTransformRaw).ExtractPosition();
             Events.OnClickButton1.Invoke();
             
             
@@ -1845,7 +1854,8 @@ public class HapticPlugin : MonoBehaviour
             //Vector3 rr_stylus_pos = CurrentPosition;
             Vector3 contact_normal = gameObject.transform.InverseTransformVector(collision.GetContact(0).normal);
             Vector3 contact_point = gameObject.transform.InverseTransformVector(collision.GetContact(0).point);
-
+            // Ray ray = Camera.main.ScreenPointToRay(contact_point);
+            // RaycastHit hit;    
             //Debug.Log("VPos: " + v_stylus_pos.ToString("F5"));
             //Debug.Log("RRPos: " + rr_stylus_pos.ToString("F5"));
             //Debug.Log("RPos: " + r_stylus_pos.ToString("F5"));

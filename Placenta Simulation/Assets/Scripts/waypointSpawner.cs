@@ -6,6 +6,13 @@ using System.Runtime.InteropServices;
 using UnityEngine.Events;
 using System;
 using HapticGUI;
+using System;
+using System.IO;
+// using Directory.GetCurrentDirectory.Assets.3DSystems.HapticsDirect.HapticScripts.HapticPlugin;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -13,6 +20,9 @@ public class NewBehaviourScript : MonoBehaviour
     public int sphereCount = 1; // Number of spheres created
     public LayerMask sphereLayer; // Layer mask for spheres
     public GameObject hoveredSphere; // Currently hovered sphere
+
+    string currentDirectory = Directory.GetCurrentDirectory();
+    
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +33,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(currentDirectory);
         // Get the mouse position in screen coordinates
         Vector3 mousePosition = Input.mousePosition; //needs to be changed to be the position of the haptic collider
 
@@ -32,9 +42,11 @@ public class NewBehaviourScript : MonoBehaviour
 
         // Create a RaycastHit variable to store information about the hit
         RaycastHit hit;
-
+        
         // Check if the left mouse button is pressed
-        if (Input.GetMouseButtonDown(0)) //needs to be changed to be the when the button on the haptic device is pressed
+        // if (HapticPlugin.LastButtons[0] == 0 && HapticPlugin.Buttons[0] == 1) //needs to be changed to be the when the button on the haptic device is pressed
+        // if (HL_EVENT1_BUTTON_DOWN)
+        if (Input.GetMouseButtonDown(0))
         {
             // Check if the ray hits something in the scene
             if (Physics.Raycast(ray, out hit))
