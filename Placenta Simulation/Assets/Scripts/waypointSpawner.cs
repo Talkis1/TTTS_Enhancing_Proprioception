@@ -11,6 +11,8 @@ public class NewBehaviourScript : MonoBehaviour
 {
     public float sphereRadius = 0.05f; // Radius of the sphere to be created
     public int sphereCount = 1; // Number of spheres created
+    public LayerMask sphereLayer; // Layer mask for spheres
+    public GameObject hoveredSphere; // Currently hovered sphere
 
     // Start is called before the first frame update
     void Start()
@@ -21,18 +23,19 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Get the mouse position in screen coordinates
+        Vector3 mousePosition = Input.mousePosition; //needs to be changed to be the position of the haptic collider
+
+        // Convert the mouse position to a ray
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+
+        // Create a RaycastHit variable to store information about the hit
+        RaycastHit hit;
+
         // Check if the left mouse button is pressed
         if (Input.GetMouseButtonDown(0)) //needs to be changed to be the when the button on the haptic device is pressed
         {
-            // Get the mouse position in screen coordinates
-            Vector3 mousePosition = Input.mousePosition; //needs to be changed to be the position of the haptic collider
-
-            // Convert the mouse position to a ray
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-
-            // Create a RaycastHit variable to store information about the hit
-            RaycastHit hit;
-
             // Check if the ray hits something in the scene
             if (Physics.Raycast(ray, out hit))
             {
@@ -45,6 +48,16 @@ public class NewBehaviourScript : MonoBehaviour
                 sphere.tag = "Waypoint";
                 sphereCount++;
 
+            }
+        }
+
+        // Check if the middle mouse button is clicked
+        if (Input.GetMouseButtonDown(2)) // Middle mouse button
+        {
+            // Perform a raycast and check if it is a sphere
+            if(Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Waypoint"))
+            {
+                Destroy(hit.collider.gameObject); // Destroy the sphere it hits
             }
         }
     }
