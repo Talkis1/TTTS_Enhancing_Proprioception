@@ -1656,7 +1656,7 @@ public class HapticPlugin : MonoBehaviour
         
         if (LastButtons[0] == 0 && Buttons[0] == 1)
         {
-            Debug.Log("button Pressed");
+            // Debug.Log("button Pressed");
             float sphereRadius = .05f;
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             // sphere.transform.position = (transform.localToWorldMatrix * DeviceTransformRaw).ExtractPosition();

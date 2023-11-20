@@ -382,6 +382,7 @@
 "Assets/3DSystems/HapticsDirect/HapticScripts/HelpWindow.cs"
 "Assets/3DSystems/HapticsDirect/HapticScripts/SceneControl.cs"
 "Assets/3DSystems/HapticsDirect/HapticScripts/VirtualHaptic.cs"
+"Assets/Scripts/dottedLine.cs"
 "Assets/Scripts/pathPlanning.cs"
 "Assets/Scripts/waypointSpawner.cs"
 -langversion:9.0
